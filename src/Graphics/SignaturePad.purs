@@ -7,6 +7,7 @@ module Graphics.SignaturePad
   , isEmpty
   , on
   , off
+  , module Graphics.SignaturePad.Types
   ) where
 
 import Prelude (Unit)
