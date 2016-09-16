@@ -1,0 +1,32 @@
+{
+  "name": "purescript-signature-pad",
+  "license": "MIT",
+  "authors": [
+    "narinari <narinari.t@gmail.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/narinari/purescript-signature-pad.git"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output",
+    "test",
+    "bower.json",
+    "package.json"
+  ],
+  "dependencies": {
+    "purescript-console": "^1.0.0",
+    "purescript-foreign": "^1.0.0",
+    "purescript-dom": "^1.1.0",
+    "purescript-eff-functions": "^1.0.0",
+    "signature_pad": "^1.5.3",
+    "purescript-css": "^1.1.0",
+    "purescript-eff": "^1.0.0"
+  },
+  "devDependencies": {
+    "purescript-psci-support": "^1.0.0"
+  }
+}
