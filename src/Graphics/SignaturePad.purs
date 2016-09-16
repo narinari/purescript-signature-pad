@@ -10,18 +10,24 @@ module Graphics.SignaturePad
   , module Graphics.SignaturePad.Types
   ) where
 
-import Prelude (Unit)
-
+import Graphics.SignaturePad.Types
+import CSS.Color (cssStringRGBA)
 import Control.Monad.Eff (Eff)
-
-import Data.Function.Eff (EffFn1, EffFn2, runEffFn1, runEffFn2)
-
 import DOM (DOM)
 import DOM.HTML.Types (HTMLCanvasElement)
+import Data.Function.Eff (EffFn1, EffFn2, runEffFn1, runEffFn2)
+import Prelude (Unit)
 
-import Graphics.SignaturePad.Types
+type RawConfig =
+  { dotSize :: Number
+  , minWidth :: Number
+  , maxWidth :: Number
+  , backgroundColor :: String
+  , penColor :: String
+  , velocityFilterWeight :: Number
+  }
 
-foreign import mkSignaturePadImpl :: forall eff. EffFn2 (dom :: DOM | eff) HTMLCanvasElement Config SignaturePad
+foreign import mkSignaturePadImpl :: forall eff. EffFn2 (dom :: DOM | eff) HTMLCanvasElement RawConfig SignaturePad
 foreign import mkSignaturePadSimpleImpl :: forall eff. EffFn1 (dom :: DOM | eff) HTMLCanvasElement SignaturePad
 foreign import toDataURLImpl :: forall eff. EffFn2 (dom :: DOM | eff) SignaturePad String String
 foreign import fromDataURLImpl :: forall eff. EffFn2 (dom :: DOM | eff) SignaturePad String Unit
@@ -31,7 +37,15 @@ foreign import onImpl :: forall eff. EffFn1 (dom :: DOM | eff) SignaturePad Unit
 foreign import offImpl :: forall eff. EffFn1 (dom :: DOM | eff) SignaturePad Unit
 
 mkSignaturePad :: forall eff. HTMLCanvasElement -> Config -> Eff (dom :: DOM | eff) SignaturePad
-mkSignaturePad = runEffFn2 mkSignaturePadImpl
+mkSignaturePad elm config =
+  runEffFn2 mkSignaturePadImpl elm
+    { dotSize: config.dotSize
+    , minWidth: config.minWidth
+    , maxWidth: config.maxWidth
+    , backgroundColor: cssStringRGBA config.backgroundColor
+    , penColor: cssStringRGBA config.penColor
+    , velocityFilterWeight: config.velocityFilterWeight
+    }
 
 mkSignaturePadSimple :: forall eff. HTMLCanvasElement -> Eff (dom :: DOM | eff) SignaturePad
 mkSignaturePadSimple = runEffFn1 mkSignaturePadSimpleImpl
