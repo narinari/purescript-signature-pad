@@ -20,7 +20,7 @@
   "dependencies": {
     "purescript-console": "^1.0.0",
     "purescript-foreign": "^1.0.0",
-    "purescript-dom": "^1.1.0",
+    "purescript-dom": "^2.0.0",
     "purescript-eff-functions": "^1.0.0",
     "signature_pad": "^1.5.3",
     "purescript-css": "^1.1.0",
