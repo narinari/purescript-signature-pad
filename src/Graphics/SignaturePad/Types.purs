@@ -11,6 +11,8 @@ type Config =
   , backgroundColor :: Color
   , penColor :: Color
   , velocityFilterWeight :: Number
+  , width :: Number
+  , height :: Number
   }
 
 defaultConfig :: Config
@@ -21,4 +23,6 @@ defaultConfig =
   , backgroundColor: rgba 0 0 0 0.0
   , penColor: black
   , velocityFilterWeight: 0.7
+  , width: 300.0
+  , height: 150.0
   }

@@ -36,7 +36,7 @@ main = onLoad $ void $ do
   offElm <- toMaybe <$> getElementById (ElementId "off") doc
 
   pad1 <- sequence $ mkSignaturePadSimple <$> ((eitherToMaybe <<< read <<< toForeign) =<< pad1Elm)
-  pad2 <- sequence $ flip mkSignaturePad defaultConfig { maxWidth = 5.5, backgroundColor = rgb 200 200 250 } <$> ((eitherToMaybe <<< read <<< toForeign) =<< pad2Elm)
+  pad2 <- sequence $ flip mkSignaturePad defaultConfig { maxWidth = 5.5, backgroundColor = rgb 200 200 250, width = 500.0, height = 300.0 } <$> ((eitherToMaybe <<< read <<< toForeign) =<< pad2Elm)
   
   sequence $ setup <$> pad1 <*> clearElm <*> onElm <*> offElm
 

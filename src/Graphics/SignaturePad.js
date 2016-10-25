@@ -1,6 +1,12 @@
 "use strict";
 
+var resize = function (elm, options) {
+  elm.height = options.height;
+  elm.width = options.width;
+};
+
 exports.mkSignaturePadImpl = function (elm, options) {
+  resize(elm, options);
   return new SignaturePad(elm, options);
 };
 

@@ -25,6 +25,8 @@ type RawConfig =
   , backgroundColor :: String
   , penColor :: String
   , velocityFilterWeight :: Number
+  , width :: Number
+  , height :: Number
   }
 
 foreign import mkSignaturePadImpl :: forall eff. EffFn2 (dom :: DOM | eff) HTMLCanvasElement RawConfig SignaturePad
@@ -45,6 +47,8 @@ mkSignaturePad elm config =
     , backgroundColor: cssStringRGBA config.backgroundColor
     , penColor: cssStringRGBA config.penColor
     , velocityFilterWeight: config.velocityFilterWeight
+    , width: config.width
+    , height: config.height
     }
 
 mkSignaturePadSimple :: forall eff. HTMLCanvasElement -> Eff (dom :: DOM | eff) SignaturePad
