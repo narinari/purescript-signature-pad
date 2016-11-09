@@ -4,6 +4,7 @@ import Graphics.SignaturePad
 import CSS (rgb)
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE)
+import Control.Monad.Except (runExcept)
 import DOM (DOM)
 import DOM.Event.EventTarget (eventListener, addEventListener)
 import DOM.Event.Types (EventType(EventType))
@@ -35,12 +36,13 @@ main = onLoad $ void $ do
   onElm <- toMaybe <$> getElementById (ElementId "on") doc
   offElm <- toMaybe <$> getElementById (ElementId "off") doc
 
-  pad1 <- sequence $ mkSignaturePadSimple <$> ((eitherToMaybe <<< read <<< toForeign) =<< pad1Elm)
-  pad2 <- sequence $ flip mkSignaturePad defaultConfig { maxWidth = 5.5, backgroundColor = rgb 200 200 250, width = 500.0, height = 300.0 } <$> ((eitherToMaybe <<< read <<< toForeign) =<< pad2Elm)
+  pad1 <- sequence $ mkSignaturePadSimple <$> (downCast =<< pad1Elm)
+  pad2 <- sequence $ flip mkSignaturePad defaultConfig { maxWidth = 5.5, backgroundColor = rgb 200 200 250, width = 500.0, height = 300.0 } <$> (downCast =<< pad2Elm)
   
   sequence $ setup <$> pad1 <*> clearElm <*> onElm <*> offElm
 
   where
+  downCast = eitherToMaybe <<< runExcept <<< read <<< toForeign
   eitherToMaybe = either (const Nothing) pure
   setup pad clearElm onElm offElm = do
     addEventListener clickEvent (eventListener \_ -> clear pad) false $ elementToEventTarget clearElm
